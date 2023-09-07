@@ -1,0 +1,8 @@
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=rossxkiller123@gmail.com
+MAIL_PASSWORD=golyydijeuaklzhv
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="rossxkiller123@gmail.com"
+MAIL_FROM_NAME="IPT Security System"

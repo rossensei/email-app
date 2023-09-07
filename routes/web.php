@@ -24,11 +24,12 @@ Route::middleware('guest')->group(function () {
     Route::get('/verification/{user}/{token}', [AuthController::class, 'verification']);
 });
 
+// Auth::routes(['verify' => true]);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard')->middleware('auth', 'verified');
 
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth','verified'])->group(function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

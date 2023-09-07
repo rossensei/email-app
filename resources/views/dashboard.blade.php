@@ -1,13 +1,20 @@
 @extends('base')
 
 @section('content')
-    <h1>Dashboard</h1>
+    
 
-    <form method="POST" action="{{ route('logout') }}">
+    @if(auth()->check())
+        <div class="container mt-3 col-md-6 offset-md-3">
+            <h1>Dashboard</h1>
+            Welcome, {{ auth()->user()->name }}
+            <form method="POST" action="{{ route('logout') }}">
 
-        {{ csrf_field() }}
+                {{ csrf_field() }}
 
-        <button type="submit">Logout</button>
+                <button type="submit">Logout</button>
 
-    </form>
+            </form>
+        </div>
+    @endif
+    
 @endsection

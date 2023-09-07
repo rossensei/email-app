@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
 class AuthController extends Controller
 {
+
+    // protected function sendFailedLoginResponse(Request $request)
+    // {
+    //     throw ValidationException::withMessages([
+    //         $this->username() => [trans('auth.failed')],
+    //     ])->redirectTo('/login')->withErrors(['email' => 'Your email is not verified.']);
+    // }
     public function loginForm()
     {
         return view('auth.login');
@@ -23,23 +31,21 @@ class AuthController extends Controller
 
         if(auth()->attempt($credentials)) {
 
-        //    dd(auth()->user()->email_verified_at);
-            if(!auth()->user()->email_verified_at) {
-                auth()->logout();
-                return redirect('/')->with('error', 'Your email is not verified.');
-            } else {
-                // dd(auth()->user()->email_verified_at);
+            // if(!auth()->user()->email_verified_at) {
+            //     auth()->logout();
+            //     return redirect('/')->with('error', 'Your email is not verified.');
+            // } else {
+
                 $request->session()->regenerate();
 
                 return redirect()->intended('dashboard');
-            }
-        } else {
-            return back()->with('error', 'The provided credentials do not match our records.');
-        }
+            // }
+        } 
+        
 
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.'
-        // ])->onlyInput('email');
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.'
+        ])->onlyInput('email');
     }
 
     public function registerForm()
