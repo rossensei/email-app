@@ -24,6 +24,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/verification/{user}/{token}', [AuthController::class, 'verification']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth', 'verified');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth', 'verified');
+
+Route::middleware('auth')->group(function() {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
